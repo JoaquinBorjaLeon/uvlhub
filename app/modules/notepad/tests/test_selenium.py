@@ -1,13 +1,13 @@
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 import time
 
 from core.environment.host import get_host_for_selenium_testing
 from core.selenium.common import initialize_driver, close_driver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 
-def test_notepad_index():
+def test_notepad():
 
     driver = initialize_driver()
 
@@ -15,7 +15,7 @@ def test_notepad_index():
         host = get_host_for_selenium_testing()
 
         # Open the index page
-        driver.get(f'{host}/notepad')
+        driver.get(host)
         driver.set_window_size(1712, 931)
         driver.find_element(By.CSS_SELECTOR, ".navbar-collapse").click()
         driver.find_element(By.CSS_SELECTOR, ".nav-link:nth-child(1)").click()
@@ -25,8 +25,7 @@ def test_notepad_index():
         driver.find_element(By.ID, "password").click()
         driver.find_element(By.ID, "password").send_keys("1234")
         driver.find_element(By.ID, "submit").click()
-        driver.find_element(By.CSS_SELECTOR, ".sidebar-item:nth-child(12) .align-middle:nth-child(2)").click()
-        driver.find_element(By.LINK_TEXT, "Create notepad").click()
+        driver.get(f'{host}/notepad/create')
         driver.find_element(By.CSS_SELECTOR, "form > div:nth-child(2)").click()
         driver.find_element(By.ID, "title").click()
         driver.find_element(By.ID, "title").send_keys("Prue")
@@ -62,4 +61,4 @@ def test_notepad_index():
 
 
 # Call the test function
-test_notepad_index()
+test_notepad()
